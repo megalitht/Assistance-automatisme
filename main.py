@@ -1,5 +1,11 @@
 import speech_recognition as sr
 import os
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
+
+
+
 
 
 def ecouter():
@@ -13,7 +19,7 @@ def ecouter():
         recognizer.adjust_for_ambient_noise(source, duration = 0.5)
         
         print("Je suis a votre écoute...")
-        audio = recognizer.listen(source)
+        audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
         
     try:
         text = recognizer.recognize_google(audio, language="fr-FR")
@@ -54,7 +60,7 @@ while True:
                 play_min = playlist.lower()
                 
                 # On permet aussi d'annuler juste le choix de la playlist
-                if "annul" in play_min:
+                if "annule" in play_min:
                     print("Choix de la playlist annulé. Retour au menu principal.")
                 elif "jeu" in play_min or "jeux" in play_min:
                     print("Voici votre playlist de jeu !")
@@ -65,11 +71,23 @@ while True:
                 else:
                     print("Désolé, je n'ai pas compris votre mood.")
             else:
-                print("Je n'ai pas entendu de mood.")
+                pass
                 
         # --- GESTION DU TRAVAIL ---
         elif "travail" in text_min:
             print("J'arrange votre espace de travail... veuillez patienter un instant !")
+            os.system("open -a 'Safari'")
+            os.system("open -a 'Spotify'")
+            os.system("open -a 'visual studio code'")
+            
+            #ouverture de lien
+            os.system("open -u https://webetud.iut-blagnac.fr/login/index.php")
+            os.system("open -u https://github.com")
+            os.system("open -u https://gemini.google.com/app")
+            
+            
+            
+            
             # C'est ici qu'on mettra les commandes os.system("open -a ...")
             
         # --- GESTION DU SERVEUR ---
@@ -80,3 +98,6 @@ while True:
         # S'il n'a rien entendu, il ne fait rien et la boucle recommence
         pass
     
+
+
+
