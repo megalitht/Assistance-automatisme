@@ -2,6 +2,7 @@ import speech_recognition as sr
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import keyboard
 
 
 
@@ -148,10 +149,31 @@ while True:
                         pass
             else:
                 pass
+        
+        
+        elif "connecte" in text_min and "IUT" in text_min or "espace étudiant" in text_min:
+            print("Je me connecte à votre espace étudiant de l'IUT... veuillez patienter un instant !")
+            os.system("open -a 'Safari'")
+            os.system("open -u https://webetud.iut-blagnac.fr/login/index.php")
+            #temps d'attente reel pour que la page se charge, à ajuster selon la vitesse de connexion
+
+            wait_time = 3
+            
+            print(f"Attente de {wait_time} secondes pour que la page se charge...")
+            
+            print("Voulez-vous que je remplisse automatiquement vos identifiants ?")
+            
+            if "oui" in text_min:
+                
+                keyboard.press_and_release('tab')
+                keyboard.write('os.environ.get("IDENTIFIANT_IUT")') 
+                keyboard.press_and_release('tab')
+                keyboard.write('os.environ.get("MOT_DE_PASSE_IUT")')
+                keyboard.press_and_release('enter') 
+            
+            else:
+                pass
+        
     else:
         # S'il n'a rien entendu, il ne fait rien et la boucle recommence
         pass
-    
-
-
-
